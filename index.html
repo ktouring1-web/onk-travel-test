@@ -9,9 +9,12 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="What’s your Korea travel type?">
 <meta property="og:description" content="10 quick questions to find your Korea travel type · On.K">
-<meta property="og:image" content="https://YOUR-DOMAIN/og-image.png">
-<meta property="og:url" content="https://YOUR-DOMAIN/">
+<meta property="og:url" content="https://onk-travel-test.vercel.app/">
+<meta property="og:image" content="https://onk-travel-test.vercel.app/og-a.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://onk-travel-test.vercel.app/og-a.jpg">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
@@ -164,6 +167,14 @@
   .map-foot .b{font-weight:800;font-size:17px}
   .map-foot p+p{font-size:14px;margin-top:2px}
   .share-grid{display:grid;gap:10px}
+  .share-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .sh{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:76px;border-radius:16px;font-weight:700;font-size:13px;line-height:1.2;text-align:center;text-decoration:none;padding:8px 6px;transition:transform .1s}
+  .sh:active{transform:scale(.97)}
+  .sh .ic{font-size:24px;line-height:1}
+  .sh-wa{background:#25D366;color:#fff}
+  .sh-ig{background:var(--pink);color:#fff}
+  .sh-ln{background:var(--ink);color:var(--yellow)}
+  .sh:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
   .share-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .foot{text-align:center;font-size:12px;color:var(--gray-5);margin-top:30px}
 
@@ -292,7 +303,11 @@
     <div class="sec">
       <h2>📲 Share your result</h2>
       <div class="share-grid">
-        <button class="btn btn-pink" id="mateBtn">👯 Send to your travel buddy</button>
+        <div class="share-3">
+          <a class="sh sh-wa" id="waBtn" href="https://wa.me/" target="_blank" rel="noopener"><span class="ic" aria-hidden="true">💬</span>WhatsApp</a>
+          <button class="sh sh-ig" id="igBtn"><span class="ic" aria-hidden="true">📸</span>Instagram Story</button>
+          <button class="sh sh-ln" id="mateBtn"><span class="ic" aria-hidden="true">🔗</span>Share link</button>
+        </div>
         <div class="share-row">
           <button class="btn btn-line btn-sm" id="cardBtn">📥 Save my type</button>
           <button class="btn btn-line btn-sm" id="againBtn">🔄 Retake the test</button>
@@ -309,7 +324,7 @@
   <div class="sheet">
     <div class="sheet-head"><h3 id="cardModalTitle">My travel type card</h3><button class="x" data-close aria-label="Close">✕</button></div>
     <img class="card-img" id="cardImg" alt="My Korea travel type result card">
-    <p class="muted" style="text-align:center;font-size:14px;margin-bottom:14px">If saving doesn’t work, <b>press and hold</b> the image to save it</p>
+    <p class="muted" id="cardHint" style="text-align:center;font-size:14px;margin-bottom:14px">If saving doesn’t work, <b>press and hold</b> the image to save it</p>
     <a class="btn btn-primary" id="cardDl" download="my-korea-travel-type.png">Save image</a>
   </div>
 </div>
@@ -322,11 +337,11 @@
    ========================================================= */
 const CONFIG = {
   // 테스트 페이지가 올라갈 주소 (공유 링크에 사용)
-  siteUrl: 'https://YOUR-DOMAIN/',
+  siteUrl: 'https://onk-travel-test.vercel.app/',
   // On.K맵 주소 (유형 정보가 ?type=… 으로 붙어서 넘어갑니다)
   mapUrl: 'https://onkmap.com/kr/gangneung',
   // 구글 애널리틱스(GA4) 측정 ID. 없으면 비워두세요. 예: 'G-XXXXXXX'
-  ga4Id: '',
+  ga4Id: 'G-HQR0YTRC90',
   // 상품 링크에 자동으로 붙는 유입 출처 표시
   utm: { utm_source: 'travel_test', utm_medium: 'quiz', utm_campaign: 'korea_travel_type' },
 };
@@ -356,17 +371,17 @@ const TYPES = {
     analysis: [
       "You don’t remember places — you remember scenes. A quiet beach, an old stone wall, a rain-soaked alley: where others walk past, you see a story. The moment you arrive somewhere, you’re already wondering what happened here, and placing yourself right in the middle of it. That’s why your trips always feel a little cinematic. You have a gift for finding the moments that deserve a soundtrack.",
       "You may look calm on the outside, but your emotional volume runs high. You’ve definitely spent days in that post-finale haze after a show you loved. And sooner or later, that feeling is exactly what gets you on a plane.",
-      "When you plan, heart and detail work side by side. Every spot you want to see is pinned on your map, and you even check the hour it looks its best — golden hour, or a rainy afternoon. For you, the best souvenir isn’t something you buy. It’s one photo of you, standing inside that scene.",
+      "When you plan, your heart and your eye for detail work side by side. Every spot you want to see is pinned on your map, and you even check the hour it looks its best — golden hour, or a rainy afternoon. For you, the best souvenir isn’t something you buy. It’s one photo of you, standing inside that scene.",
     ],
     scenes: [
-      ["✈️ While planning", "You’re already rewatching before you go, collecting screenshots into a “places I need to see” list."],
+      ["✈️ While planning", "You’re already rewatching your favorite dramas before you go, collecting screenshots into a “places I need to see” list."],
       ["📍 When you land in Korea", "You skip the famous landmarks and head straight to the spot you saw on screen. You won’t relax until you get the same angle."],
       ["👥 With a travel buddy", "A friend who takes great photos is your ideal mate. If they get your vibe, the trip is twice as good."],
-      ["😱 When plans go sideways", "Sudden rain? Even better. “This is literally a drama scene,” you say — and take an umbrella shot."],
+      ["😱 When plans go sideways", "Sudden rain? Even better. “This is literally a drama scene,” you say — and snap a photo under your umbrella."],
     ],
     sayings: ["One more shot — the light is perfect right now", "Remember this scene? This is the place!"],
     strengths: ["Turning ordinary places into movie scenes", "A great eye for mood and timing", "Memories that stay with you long after"],
-    cautions: ["Big expectations can lead to a letdown when a place isn’t like the screen", "You can get so focused on photos that you miss the moment itself"],
+    cautions: ["Big expectations can lead to a letdown when a place doesn’t look like it did on screen", "You can get so focused on photos that you miss the moment itself"],
     mates: {
       best: "You bring the location, the Beauty Lover brings the look. Together, your camera roll turns into a photo book.",
       worst: "While you head for the scene you planned, the Explorer wants to wander down an alley they’ve never seen. One day apart is the secret to peace.",
@@ -402,7 +417,7 @@ const TYPES = {
     need: "Too many fan spots to find on your own — see them all in one stan-approved route.",
     products: [
       { emoji: "🎤", name: "How to be a KPOP IDOL", desc: "Step into a real recording booth and sing like an idol. Watch the debut moment on our reel.", url: "https://www.instagram.com/on.k_culture/reel/Dd8w1EtzkuU/", img: PIMG.idol, badge: "Instagram" },
-      { emoji: "🍰", name: "HYBE Idol’s Food Picks", desc: "The restaurants and cafés your favorite idols have visited, all in one place. Eat like your bias on your Korea trip.", url: "https://www.instagram.com/p/DbaiEYaD2cH", img: PIMG.hybe, badge: "Instagram" },
+      { emoji: "🍰", name: "HYBE Idols’ Food Picks", desc: "The restaurants and cafés your favorite idols have visited, all in one place. Eat like your bias on your Korea trip.", url: "https://www.instagram.com/p/DbaiEYaD2cH", img: PIMG.hybe, badge: "Instagram" },
     ],
   },
   explorer: {
@@ -427,7 +442,7 @@ const TYPES = {
       best: "You lead the hands-on adventures by day, and the Night Owl leads the views and bars by night. Together you fill every hour.",
       worst: "The Beauty Lover plans around salon bookings; you want to follow your feet. Just be on time for their appointments.",
     },
-    need: "A few hours of making and playing Korea — not just seeing it.",
+    need: "A few hours of hands-on Korea — not just seeing it.",
     products: [
       { emoji: "🥟", name: "K-Cooking Class", desc: "Cook a Korean meal with bibigo dumplings and enjoy it together. You’ll leave with a recipe you can make at home.", url: "https://onkculture.kr/experiences/95", img: PIMG.cooking },
       { emoji: "🎶", name: "Korean Traditional Instrument One-Day Class", desc: "Get your hands on a traditional instrument like the gayageum and play a full piece from scratch.", url: "https://onkculture.kr/experiences/146", img: PIMG.gayageum },
@@ -485,8 +500,8 @@ const TYPES = {
     },
     need: "Going beyond shopping — learning Korean makeup for yourself.",
     products: [
-      { emoji: "💄", name: "Get the TV Show K-Make Look", desc: "Recreate that TV-worthy look at a Korean makeup studio. Your travel photos will look like a photo shoot.", url: "https://onkculture.kr/experiences/139", img: PIMG.makeup },
-      { emoji: "✨", name: "Idol’s K-Beauty Hot Spots", desc: "The K-beauty stores idols love, all in one place. Fill up your shopping list before you go.", url: "https://www.instagram.com/on.k_culture/p/DcN0NurD020/", img: PIMG.tamburins, badge: "Instagram" },
+      { emoji: "💄", name: "Get the TV Show K-Makeup Look", desc: "Recreate that TV-worthy look at a Korean makeup studio. Your travel photos will look like a photo shoot.", url: "https://onkculture.kr/experiences/139", img: PIMG.makeup },
+      { emoji: "✨", name: "Idols’ K-Beauty Hot Spots", desc: "The K-beauty stores idols love, all in one place. Fill up your shopping list before you go.", url: "https://www.instagram.com/on.k_culture/p/DcN0NurD020/", img: PIMG.tamburins, badge: "Instagram" },
     ],
   },
 };
@@ -641,7 +656,9 @@ function withUtm(url, type) {
 }
 function shareUrl(type) {
   const base = CONFIG.siteUrl.includes('YOUR-DOMAIN') ? location.href.split('?')[0] : CONFIG.siteUrl;
-  return base + '?from=' + type;
+  // 미리보기 비교 테스트: 공유할 때마다 a.html / b.html 중 하나가 랜덤으로 나갑니다
+  const variant = Math.random() < 0.5 ? 'a' : 'b';
+  return base.replace(/index\.html$/, '').replace(/\/?$/, '/') + variant + '.html?from=' + type;
 }
 
 // 랜딩: 친구 링크로 들어온 경우
@@ -731,7 +748,7 @@ function renderResult(t) {
     $('chemScore').textContent = sc + '%';
     $('chemText').textContent = sc >= 85 ? 'A perfect travel match! You’ll have a blast together — start planning now.'
       : sc >= 65 ? 'Take turns picking what each of you wants to do, and it’ll be the perfect trip.'
-      : 'Different tastes mean new experiences! Try spending one day on your own plans.';
+      : 'Different tastes mean new experiences! Try doing your own thing for a day.';
     requestAnimationFrame(() => setTimeout(() => $('chemBar').style.width = sc + '%', 50));
   }
 
@@ -745,13 +762,46 @@ function renderResult(t) {
   try { const mu = new URL(CONFIG.mapUrl); mu.searchParams.set('type', t); $('mapLink').href = withUtm(mu.toString(), t); }
   catch (e) { $('mapLink').href = CONFIG.mapUrl; }
   $('mapLink').onclick = () => track('click_map', { type: t });
+  setWhatsApp(t);
+  prepCard(t);
 
 }
 
+function shareText(t) { const d = TYPES[t]; return `I’m ${d.emoji} ${d.name}! What’s your Korea travel type? Let’s see if we’re a travel match`; }
+
+// 1) WhatsApp — 누르면 WhatsApp 앱이 바로 열리고 메시지가 채워져 있어요
+function setWhatsApp(t) { $('waBtn').href = 'https://wa.me/?text=' + encodeURIComponent(shareText(t) + '\n' + shareUrl(t)); }
+$('waBtn').onclick = () => { track('share', { method: 'whatsapp', type: myType }); setTimeout(() => setWhatsApp(myType), 300); };
+
+// 2) Instagram Story — 결과 카드 이미지를 공유 창으로 보내요 (공유 창에서 Instagram → 스토리 선택)
+let cardFile = null, cardUrl = null;
+async function prepCard(t) {
+  cardFile = null; cardUrl = null;
+  try {
+    cardUrl = await makeCard(t);
+    const blob = await (await fetch(cardUrl)).blob();
+    cardFile = new File([blob], 'my-korea-travel-type.png', { type: 'image/png' });
+  } catch (e) {}
+}
+function openCardModal(hintHtml) {
+  $('cardImg').src = cardUrl; $('cardDl').href = cardUrl;
+  $('cardHint').innerHTML = hintHtml;
+  $('cardModal').classList.add('on');
+}
+$('igBtn').onclick = async () => {
+  track('share', { method: 'instagram_story', type: myType });
+  if (!cardUrl) await prepCard(myType);
+  if (cardFile && navigator.canShare && navigator.canShare({ files: [cardFile] })) {
+    try { await navigator.share({ files: [cardFile] }); return; } catch (e) { if (e.name === 'AbortError') return; }
+  }
+  openCardModal('Save this image, then open Instagram and add it to your <b>Story</b> 📸<br>Tip: <b>press and hold</b> the image if saving doesn’t work');
+};
+
+// 3) Share link — 기존 방식 (휴대폰 공유 창 또는 링크 복사)
 $('mateBtn').onclick = async () => {
   const d = TYPES[myType];
-  const data = { title: 'What’s your Korea travel type?', text: `I’m ${d.emoji} ${d.name}! What’s your Korea travel type? Let’s see if we’re a travel match`, url: shareUrl(myType) };
-  track('share', { method: 'mate', type: myType });
+  const data = { title: 'What’s your Korea travel type?', text: shareText(myType), url: shareUrl(myType) };
+  track('share', { method: 'link', type: myType });
   if (navigator.share) { try { await navigator.share(data); return; } catch (e) { if (e.name === 'AbortError') return; } }
   const ok = await copyText(data.text + '\n' + data.url);
   toast(ok ? 'Link copied — send it to your travel buddy!' : 'Couldn’t copy the link');
@@ -820,9 +870,8 @@ async function makeCard(t) {
   return c.toDataURL('image/png');
 }
 $('cardBtn').onclick = async () => {
-  const url = await makeCard(myType);
-  $('cardImg').src = url; $('cardDl').href = url;
-  $('cardModal').classList.add('on');
+  if (!cardUrl) await prepCard(myType);
+  openCardModal('If saving doesn’t work, <b>press and hold</b> the image to save it');
   track('save_card', { type: myType });
 };
 </script>
