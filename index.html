@@ -346,7 +346,7 @@ const CONFIG = {
   // 테스트 페이지가 올라갈 주소 (공유 링크에 사용)
   siteUrl: 'https://onk-travel-test.vercel.app/',
   // On.K맵 주소 (유형 정보가 ?type=… 으로 붙어서 넘어갑니다)
-  mapUrl: 'https://onkmap.com/kr/gangneung',
+  mapUrl: 'https://onkmap.com/kr?utm_source=test&utm_campaign=onktest&utm_content=web',
   // 구글 애널리틱스(GA4) 측정 ID. 없으면 비워두세요. 예: 'G-XXXXXXX'
   ga4Id: 'G-HQR0YTRC90',
   // 상품 링크에 자동으로 붙는 유입 출처 표시
@@ -780,8 +780,7 @@ function renderResult(t) {
       <span class="go" aria-hidden="true">→</span></a>`).join('');
   $('rProds').querySelectorAll('.prod').forEach(a => a.onclick = () => track('click_product', { type: t, product: d.products[a.dataset.i].name }));
 
-  try { const mu = new URL(CONFIG.mapUrl); mu.searchParams.set('type', t); $('mapLink').href = withUtm(mu.toString(), t); }
-  catch (e) { $('mapLink').href = CONFIG.mapUrl; }
+  $('mapLink').href = CONFIG.mapUrl;
   $('mapLink').onclick = () => track('click_map', { type: t });
   setWhatsApp(t);
   prepCard(t);
